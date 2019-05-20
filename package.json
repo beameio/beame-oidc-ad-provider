@@ -1,0 +1,32 @@
+{
+  "name": "beame-oidc-ad-provider",
+  "version": "1.0.0",
+  "description": "OIDC provider from AD groups",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beameio/beame-oidc-ad-provider.git"
+  },
+  "author": "beame.io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beameio/beame-oidc-ad-provider/issues"
+  },
+  "homepage": "https://github.com/beameio/beame-oidc-ad-provider#readme",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "beame-sdk": "^2.1.1",
+    "oidc-provider": "^5.5.5"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "jsdoc": "^3.5.5",
+    "mocha": "^6.0.2",
+    "simple-mock": "^0.8.0"
+  }
+}

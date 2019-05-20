@@ -1,0 +1,13 @@
+.idea
+.vscode
+.beame*
+.DS_Store
+__MACOSX
+package-lock.json
+node_modules
+npm-debug.log
+build/
+docs/
+certs/
+logs/
+test/output/*
