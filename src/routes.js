@@ -75,14 +75,12 @@ module.exports = (app, provider) => {
 
   app.post('/interaction/:grant/login', setNoCache, body, async (req, res, next) => {
     try {
-      const account = await Account.findByLogin(req.body.login);
+      const account = await Account.findByLogin(req.connection.user);
 
       const result = {
         login: {
           account: account.accountId,
           acr: 'urn:mace:incommon:iap:bronze',
-          amr: ['pwd'],
-          remember: !!req.body.remember,
           ts: Math.floor(Date.now() / 1000),
         },
         consent: {},

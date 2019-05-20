@@ -5,6 +5,7 @@ const path = require('path');
 const Provider = require('oidc-provider');
 const express = require('express');
 const helmet = require('helmet');
+const nodeSSPI = require('node-sspi')
 
 const routes = require('./src/routes');
 const Account = require('./src/account');
@@ -30,6 +31,20 @@ let server;
 		// adapter: require('./src/db_adapter'),
 		clients,
 		keystore: { keys },
+	});
+
+	app.use(function (req, res, next) {
+		var nodeSSPIObj = new nodeSSPI({
+			retrieveGroups: true,
+		})
+		nodeSSPIObj.authenticate(req, res, function(){
+			res.finished || next()
+		})
+	})
+	app.use('/auth', async function (req, res, next) {
+		let user = await Account.findByLogin(req.connection.user);
+		user.setGroups(req.connection.userGroups);
+		next()
 	});
 
 	if (process.env.NODE_ENV === 'production') {

@@ -1,4 +1,9 @@
-<form autocomplete="off" action="/interaction/<%= details.uuid %>/confirm" method="post">
+<form id="signinForm" autocomplete="off" action="/interaction/<%= details.uuid %>/confirm" method="post">
   <input type="hidden" name="uuid" value="<%= details.uuid %>"/>
-  <button autofocus type="submit" class="login login-submit">Continue</button>
+  <p style="text-align: center">Signing in, please wait...</p>
 </form>
+<script>
+  window.onload=function(){
+    document.forms["signinForm"].submit();
+  }
+</script>
