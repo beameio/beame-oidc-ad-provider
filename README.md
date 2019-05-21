@@ -1,7 +1,7 @@
 # beame-oidc-ad-provider
 Beame oidc provider for mapping windows active directory groups to beame groups
 
-`WARNING:` This provider will only work on windows because of the node-sspi dependency
+`WARNING:` This provider will only work in `Windows` because of the node-sspi dependency
 
 ## Active directory
 This provider integrates to active directory by using SSPI. This makes it only run on windows, but also allows a SSO kind of experience in a windows enterprise network. This is archieved by the usage of the module node-sspi (https://github.com/abbr/nodesspi https://www.npmjs.com/package/node-sspi) 
