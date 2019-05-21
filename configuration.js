@@ -29,11 +29,11 @@ module.exports.clients = [
 ];
 
 module.exports.provider = Object.assign({
-	acrValues: ['urn:mace:incommon:iap:bronze'],
+	acrValues: ['urn:mace:incommon:iap:bronze'], // TODO: change
 	cookies: {
 		long: { signed: true, maxAge: (1 * 24 * 60 * 60) * 1000 }, // 1 day in ms
 		short: { signed: true },
-		keys: ['some secret key', 'and also the old rotated away some time ago', 'and one more'],
+		keys: ['some secret key', 'and also the old rotated away some time ago', 'and one more'], // TODO: change
 	},
 	discovery: {
 		service_documentation: pkg.homepage,
