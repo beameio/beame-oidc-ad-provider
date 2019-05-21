@@ -11,13 +11,15 @@ const configuration = require('./configuration');
 const routes = require('./src/routes');
 configuration.provider.findById = require('./src/account').findById;
 
+const beameSDK    = require('beame-sdk');
+const beameStore = new beameSDK.BeameStore();
 
 const app = express();
 app.use(helmet());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-const provider = new Provider(configuration.issuer, configuration.provider);
+const provider = new Provider(configuration.runningAt, configuration.provider);
 
 if (configuration.timeout) {
 	provider.defaultHttpOptions = { timeout: parseInt(configuration.timeout, 10) };
@@ -25,10 +27,16 @@ if (configuration.timeout) {
 
 let server;
 (async () => {
+	debug(`Getting credential for ${configuration.certFqdn}`)
+	const cred = beameStore.getCredential(configuration.certFqdn);
+	debug(`Got credential ${JSON.stringify(cred.metadata)}`)
+	const key = await Provider.asKey(cred.PRIVATE_KEY, 'pem');
+	debug(`Credential asKey became ${JSON.stringify(key)}`);
+
 	await provider.initialize({
-		// adapter: require('./src/db_adapter'),
+		// adapter: require('./src/db_adapter'), // TODO: add adapter for DB, currently using memory adapter
 		clients: configuration.clients,
-		keystore: { keys: configuration.keys },
+		keystore: { keys: [ key ] },
 	});
 
 	if (process.env.NODE_ENV === 'production') {
@@ -58,8 +66,8 @@ let server;
 	routes(app, provider);
 	app.use('/', provider.callback);
 	server = app.listen(configuration.port, () => {
-		console.log(`Server started as ${configuration.issuer}`);
-		debug(`Discovery url: ${configuration.issuer}/.well-known/openid-configuration`)
+		console.log(`Server started in ${configuration.runningAt}`);
+		debug(`Discovery url: ${configuration.runningAt}/.well-known/openid-configuration`)
 	});
 })().catch((err) => {
 	if (server && server.listening) server.close();
