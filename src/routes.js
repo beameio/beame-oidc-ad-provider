@@ -1,10 +1,11 @@
 const querystring = require('querystring');
-
-const { urlencoded } = require('express'); // eslint-disable-line import/no-unresolved
-
-const Account = require('./account');
+const { urlencoded } = require('express');
+const nodeSSPI = require('node-sspi');
+const debug = require('debug')('beame:oidc-ad-provider:routes');
 
 const body = urlencoded({ extended: false });
+const configuration = require('../configuration');
+const Account = require('./account');
 
 module.exports = (app, provider) => {
   const { constructor: { errors: { SessionNotFound } } } = provider;
@@ -29,6 +30,22 @@ module.exports = (app, provider) => {
     res.set('Cache-Control', 'no-cache, no-store');
     next();
   }
+
+	app.use('/auth', function (req, res, next) {
+		var nodeSSPIObj = new nodeSSPI({
+			retrieveGroups: true,
+		})
+		nodeSSPIObj.authenticate(req, res, function(){
+			res.finished || next()
+		})
+	})
+	app.use('/auth', async function (req, res, next) {
+		debug(`AD authenticated: user ${req.connection.user}, sid ${req.connection.userSid}, groups ${req.connection.userGroups}`);
+		let user = await Account.findByLogin(req.connection.userSid);
+		user.setUserName(req.connection.user);
+		user.setGroups(req.connection.userGroups);
+		next()
+	});
 
   app.get('/interaction/:grant', setNoCache, async (req, res, next) => {
     try {
@@ -75,12 +92,10 @@ module.exports = (app, provider) => {
 
   app.post('/interaction/:grant/login', setNoCache, body, async (req, res, next) => {
     try {
-      const account = await Account.findByLogin(req.connection.user);
-
       const result = {
         login: {
-          account: account.accountId,
-          acr: 'urn:mace:incommon:iap:bronze',
+          account: req.connection.userSid,
+          acr: configuration.provider.acrValues[0],
           ts: Math.floor(Date.now() / 1000),
         },
         consent: {},

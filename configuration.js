@@ -1,5 +1,29 @@
 const pkg = require('./package.json');
 
+module.exports.port = process.env.PORT || 3000
+module.exports.issuer = `http://localhost:${this.port}`;
+module.exports.timeout = process.env.TIMEOUT;
+
+// map of ad groups to beame groups (eg: 'BUILTIN\\Users': [ 'login', 'register'])
+module.exports.adGroupsMap = {
+	'BUILTIN\\Users': 'login',
+	'BEAMEIO\\Domain Users': [ 'register', 'login' ],
+	'BEAMEIO\\Domain Admins': 'admin'
+}
+
+module.exports.clients = [
+	{
+		// http://localhost:3000/.well-known/openid-configuration
+		// request by claim: http://localhost:3000/auth?client_id=foo&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
+		// request by scope: http://localhost:3000/auth?client_id=foo&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		client_id: 'foo',
+		client_secret: 'bar',
+		redirect_uris: ['https://lvh.me:8080/cb'],
+		response_types: ['id_token'],
+		grant_types: ['implicit'],
+	},
+];
+
 module.exports.provider = Object.assign({
 	acrValues: ['urn:mace:incommon:iap:bronze'],
 	cookies: {
@@ -69,18 +93,6 @@ module.exports.provider = Object.assign({
 		//RegistrationAccessToken: 1 * 24 * 60 * 60, // 1 day in seconds
 	},
 });
-
-module.exports.clients = [
-	{
-		// http://localhost:3000/.well-known/openid-configuration
-		// http://localhost:3000/auth?client_id=foo&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
-		client_id: 'foo',
-		client_secret: 'bar',
-		redirect_uris: ['https://lvh.me:8080/cb'],
-		response_types: ['id_token'],
-		grant_types: ['implicit'],
-	},
-];
 
 module.exports.keys = [
 	{
