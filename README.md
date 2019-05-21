@@ -44,7 +44,7 @@ Some of this configurations can be overriten by environment variables (see `Envi
 ### Clients
 OpenID Connect clients are defined in the `configuration.js` under `module.exports.clients = `. Currently there is no interface to add or remove clients from the outside since the current usage scope is restricted
 
-`client_id`, `client_secret` and `redirect_uris` should be defined to match the needed oidc client configuration 
+`client_id`, `client_secret` and `redirect_uris` should be redefined and configured in the oidc client to match
 
 ### AD Groups map
 Active directory groups map to beame groups is defined in the `configuration.js` under `module.exports.adGroupsMap =`. Each AD group can match to one or more beame groups. AD groups shouldn't be configured in duplicate.
