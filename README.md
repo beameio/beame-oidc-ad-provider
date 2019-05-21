@@ -4,7 +4,9 @@ Beame oidc provider for mapping windows active directory groups to beame groups
 `WARNING:` This provider will only work in `Windows` because of the node-sspi dependency
 
 ## Active directory
-This provider integrates to active directory by using SSPI. This makes it only run on windows, but also allows a SSO kind of experience in a windows enterprise network. This is archieved by the usage of the module node-sspi (https://github.com/abbr/nodesspi https://www.npmjs.com/package/node-sspi) 
+This provider integrates to active directory by using SSPI. 
+It makes the project only run on windows, but it also allows an SSO experience in a windows enterprise network.
+This is archieved by the usage of the module node-sspi (https://github.com/abbr/nodesspi https://www.npmjs.com/package/node-sspi) 
 
 ## OpenId Connect
 The openid provider is accomplished by the usage of the module oidc-provider (https://github.com/panva/node-oidc-provider/tree/v5.x https://www.npmjs.com/package/oidc-provider)
@@ -42,10 +44,12 @@ Some of this configurations can be overriten by environment variables (see `Envi
 * `BEAME_TIMEOUT` 
 
 ### Clients
-OpenID Connect clients are defined in the `configuration.js` under `module.exports.clients = `. Currently there is no interface to add or remove clients from the outside since the current usage scope is restricted
+OpenID Connect clients are defined in the `configuration.js` under `module.exports.clients = `. 
+Currently there is no interface to add or remove clients from the outside since the current usage scope is restricted
 
 `client_id`, `client_secret` and `redirect_uris` should be redefined and configured in the oidc client to match
 
 ### AD Groups map
-Active directory groups map to beame groups is defined in the `configuration.js` under `module.exports.adGroupsMap =`. Each AD group can match to one or more beame groups. AD groups shouldn't be configured in duplicate.
+Active directory groups map to beame groups is defined in the `configuration.js` under `module.exports.adGroupsMap =`. 
+Each AD group can match to one or more beame groups. AD groups shouldn't be configured in duplicate.
 When a user reaches the provider, all his AD groups will be mapped to the right beame groups. The final list shipped with the JWT token will be flatten and duplicates will be removed.
