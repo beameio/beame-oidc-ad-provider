@@ -28,7 +28,7 @@ So, requesting a claim of:
     }
   }
 ```
-corresponds to setting the claims url parameter to `&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D`
+translates to setting the claims url parameter to `&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D`
 
 ## Configuration
 The `configuration.js` file contains the base configuration.
