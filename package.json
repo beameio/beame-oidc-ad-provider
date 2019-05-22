@@ -27,8 +27,7 @@
     "node-sspi": "^0.2.5",
     "oidc-provider": "^5.5.5",
     "path": "^0.12.7",
-    "querystring": "^0.2.0",
-    "url": "^0.11.0"
+    "querystring": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

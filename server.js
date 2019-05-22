@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 
-const url = require('url');
 const path = require('path');
 const Provider = require('oidc-provider');
 const express = require('express');
@@ -27,9 +26,9 @@ if (configuration.timeout) {
 
 let server;
 (async () => {
-	debug(`Getting credential for ${configuration.certFqdn}`)
+	debug(`Getting credential for ${configuration.certFqdn}`);
 	const cred = beameStore.getCredential(configuration.certFqdn);
-	debug(`Got credential ${JSON.stringify(cred.metadata)}`)
+	debug(`Got credential ${JSON.stringify(cred.metadata)}`);
 	const key = await Provider.asKey(cred.PRIVATE_KEY, 'pem');
 	debug(`Credential asKey became ${JSON.stringify(key)}`);
 
