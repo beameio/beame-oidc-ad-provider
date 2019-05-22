@@ -13,6 +13,7 @@ module.exports.adGroupsMap = {
 	'BUILTIN\\Users': 'login',
 	'BEAMEIO\\Domain Users': [ 'register', 'login' ],
 	'BEAMEIO\\Domain Admins': 'admin',
+	'Group': 'othergroup',
 }
 
 module.exports.clients = [
@@ -29,11 +30,11 @@ module.exports.clients = [
 ];
 
 module.exports.provider = Object.assign({
-	acrValues: ['urn:mace:incommon:iap:bronze'], // TODO: change
+	acrValues: ['urn:beame:oidc-ad-provider'],
 	cookies: {
 		long: { signed: true, maxAge: (1 * 24 * 60 * 60) * 1000 }, // 1 day in ms
 		short: { signed: true },
-		keys: ['some secret key', 'and also the old rotated away some time ago', 'and one more'], // TODO: change
+		keys: [ require('uuid/v4')() ],
 	},
 	discovery: {
 		service_documentation: pkg.homepage,

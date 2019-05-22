@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 
-const path = require('path');
 const Provider = require('oidc-provider');
 const express = require('express');
 const helmet = require('helmet');
@@ -15,8 +14,6 @@ const beameStore = new beameSDK.BeameStore();
 
 const app = express();
 app.use(helmet());
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 const provider = new Provider(configuration.runningAt, configuration.provider);
 
@@ -33,7 +30,6 @@ let server;
 	debug(`Credential asKey became ${JSON.stringify(key)}`);
 
 	await provider.initialize({
-		// adapter: require('./src/db_adapter'), // TODO: add adapter for DB, currently using memory adapter
 		clients: configuration.clients,
 		keystore: { keys: [ key ] },
 	});

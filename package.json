@@ -25,9 +25,7 @@
     "express": "^4.17.0",
     "helmet": "^3.18.0",
     "node-sspi": "^0.2.5",
-    "oidc-provider": "^5.5.5",
-    "path": "^0.12.7",
-    "querystring": "^0.2.0"
+    "oidc-provider": "^5.5.5"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

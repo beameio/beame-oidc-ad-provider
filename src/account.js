@@ -33,10 +33,8 @@ class Account {
 			gender: 'male',
 			given_name: 'John',
 			locale: 'en-US',
-			middle_name: 'Middle',*/
-			name: this.name,
-			nickname: this.user,
-			/*phone_number: '+49 000 000000',
+			middle_name: 'Middle',
+			phone_number: '+49 000 000000',
 			phone_number_verified: false,
 			picture: 'http://lorempixel.com/400/200/',
 			preferred_username: 'Jdawg',
@@ -44,6 +42,8 @@ class Account {
 			updated_at: 1454704946,
 			website: 'http://example.com',
 			zoneinfo: 'Europe/Berlin',*/
+			name: this.name,
+			nickname: this.user,
 			groups: this.groups,
 		};
 	}
@@ -57,19 +57,8 @@ class Account {
 
 	setGroups(groups) {
 		if(!groups) return;
-		
-		this.groups = [];
-		groups.forEach(element => {
-			const elementMap = configuration.adGroupsMap[element];
-			if(elementMap) {
-				this.groups =	this.groups.concat(elementMap);	// concat also flattens the array
-			}
-		});
-		this.groups = Array.from(new Set(this.groups)); // remove duplicates
-	}
-
-	static async findByLogin(login) {
-		return await this.findById(null, login);
+		const mappedgroups = groups.map(g => configuration.adGroupsMap[g] || []);
+		this.groups = Array.from(new Set([].concat(...mappedgroups))); // flatten and remove duplicates
 	}
 
 	static async findById(ctx, id, token) { // eslint-disable-line no-unused-vars
