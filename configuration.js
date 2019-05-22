@@ -37,9 +37,7 @@ module.exports.provider = Object.assign({
 	},
 	discovery: {
 		service_documentation: pkg.homepage,
-		version: [
-			pkg.version
-		].filter(Boolean).join('-'),
+		version: pkg.version
 	},
 	claims: {
 		amr: null,
@@ -84,7 +82,7 @@ module.exports.provider = Object.assign({
 		IdToken: 1 * 60 * 60, // 1 hour in seconds
 		DeviceCode: 10 * 60, // 10 minutes in seconds
 		RefreshToken: 1 * 24 * 60 * 60, // 1 day in seconds
-		
+
 		// if you want to drop dynamic registrations 24 hours after registration
 		//RegistrationAccessToken: 1 * 24 * 60 * 60, // 1 day in seconds
 	},

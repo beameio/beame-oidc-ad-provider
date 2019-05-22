@@ -39,30 +39,6 @@ let server;
 		keystore: { keys: [ key ] },
 	});
 
-	if (process.env.NODE_ENV === 'production') {
-		app.enable('trust proxy');
-		provider.proxy = true;
-		configuration.provider.cookies.short.secure = true;
-		configuration.provider.cookies.long.secure = true;
-
-		app.use((req, res, next) => {
-			if (req.secure) {
-				next();
-			} else if (req.method === 'GET' || req.method === 'HEAD') {
-				res.redirect(url.format({
-					protocol: 'https',
-					host: req.get('host'),
-					pathname: req.originalUrl,
-				}));
-			} else {
-				res.status(400).json({
-					error: 'invalid_request',
-					error_description: 'only use https',
-				});
-			}
-		});
-	}
-
 	routes(app, provider);
 	app.use('/', provider.callback);
 	server = app.listen(configuration.port, () => {
