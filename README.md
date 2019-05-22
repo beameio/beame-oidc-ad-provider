@@ -1,4 +1,7 @@
+
 # beame-oidc-ad-provider
+[![Build Status](https://travis-ci.org/beameio/beame-oidc-ad-provider.svg?branch=master)](https://travis-ci.org/beameio/beame-oidc-ad-provider) [![HitCount](http://hits.dwyl.io/beameio/beame-oidc-ad-provider.svg)](https://github.com/beameio/beame-oidc-ad-provider)
+
 Beame oidc provider for mapping windows active directory groups to beame groups
 
 `WARNING:` This provider will only work in `Windows` because of the node-sspi dependency
