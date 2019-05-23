@@ -4,7 +4,7 @@
   "description": "OIDC provider from AD groups",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/beameio/beame-oidc-ad-provider#readme",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "dependencies": {
     "beame-sdk": "^2.1.1",
@@ -28,9 +28,10 @@
     "oidc-provider": "^5.5.5"
   },
   "devDependencies": {
+    "decache": "^4.5.1",
     "eslint": "^5.16.0",
-    "jsdoc": "^3.5.5",
     "mocha": "^6.0.2",
+    "node-fetch": "^2.6.0",
     "simple-mock": "^0.8.0"
   }
 }

@@ -1,7 +1,7 @@
 const nodeSSPI = require('node-sspi');
-const debug = require('debug')('beame:oidc-ad-provider:routes');
-
 const configuration = require('../configuration');
+const debug = require('debug')(configuration.debugPrefix + 'routes');
+
 const Account = require('./account');
 
 module.exports = (app, provider) => {

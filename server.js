@@ -3,9 +3,9 @@
 const Provider = require('oidc-provider');
 const express = require('express');
 const helmet = require('helmet');
-const debug = require('debug')('beame:oidc-ad-provider:server');
-
 const configuration = require('./configuration');
+const debug = require('debug')(configuration.debugPrefix + 'server');
+
 const routes = require('./src/routes');
 configuration.provider.findById = require('./src/account').findById;
 
@@ -22,7 +22,7 @@ if (configuration.timeout) {
 }
 
 let server;
-(async () => {
+module.exports.server = (async () => {
 	debug(`Getting credential for ${configuration.certFqdn}`);
 	const cred = beameStore.getCredential(configuration.certFqdn);
 	debug(`Got credential ${JSON.stringify(cred.metadata)}`);
@@ -36,12 +36,16 @@ let server;
 
 	routes(app, provider);
 	app.use('/', provider.callback);
-	server = app.listen(configuration.port, () => {
-		console.log(`Server started in ${configuration.runningAt}`);
+
+	server = await app.listen(configuration.port);
+	console.log(`Server started in ${configuration.runningAt}`);
+	if(configuration.provider.features.discovery)
 		debug(`Discovery url: ${configuration.runningAt}/.well-known/openid-configuration`)
-	});
+	return server;
 })().catch((err) => {
 	if (server && server.listening) server.close();
 	console.error(err);
 	process.exitCode = 1;
 });
+
+module.exports.server = this.server;

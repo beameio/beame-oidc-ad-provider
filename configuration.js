@@ -1,5 +1,6 @@
 const pkg = require('./package.json');
 
+module.exports.debugPrefix = "beame:oidc-ad-provider:";
 module.exports.port = process.env.BEAME_PORT || 3000;
 module.exports.address = process.env.BEAME_ADDRESS || `http://localhost`;
 module.exports.runningAt = `${this.address}:${this.port}`;
