@@ -40,7 +40,7 @@ module.exports.server = (async () => {
 
 	const httpsOptions = {
 		key: cred.PRIVATE_KEY,
-		cert: cred.X509
+		cert: cred.P7B
 	};
 	const httpsServer = https.createServer(httpsOptions, app);
 
