@@ -41,9 +41,9 @@ Some of this configurations can be overriten by environment variables (see `Envi
 
 ### Environment
 * `DEBUG="beame:oidc-ad-provider:*"` - enables debug log
-* `BEAME_CERT_FQDN` - certificate fqdn to use for signing the jwt (`mandatory`)
-* `BEAME_ADDRESS` - address to use to run the node server (default http://localhost)
-* `BEAME_PORT` - port to use to run the node server (default 3000)
+* `BEAME_CERT_FQDN` - certificate fqdn to use for signing the jwt and running the https server (`mandatory`)
+* `BEAME_PROVIDER_ADDRESS` - address to use to run the node server (default is 'https://$BEAME_CERT_FQDN')
+* `BEAME_PROVIDER_PORT` - port to use to run the node server (default 3000)
 * `BEAME_TIMEOUT` 
 
 ### Clients

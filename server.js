@@ -5,6 +5,7 @@ const express = require('express');
 const helmet = require('helmet');
 const configuration = require('./configuration');
 const debug = require('debug')(configuration.debugPrefix + 'server');
+const https = require('https');
 
 const routes = require('./src/routes');
 configuration.provider.findById = require('./src/account').findById;
@@ -37,10 +38,18 @@ module.exports.server = (async () => {
 	routes(app, provider);
 	app.use('/', provider.callback);
 
-	server = await app.listen(configuration.port);
+	const httpsOptions = {
+		key: cred.PRIVATE_KEY,
+		cert: cred.X509
+	};
+	const httpsServer = https.createServer(httpsOptions, app);
+
+	server = await httpsServer.listen(configuration.port);
 	console.log(`Server started in ${configuration.runningAt}`);
+
 	if(configuration.provider.features.discovery)
 		debug(`Discovery url: ${configuration.runningAt}/.well-known/openid-configuration`)
+
 	return server;
 })().catch((err) => {
 	if (server && server.listening) server.close();
