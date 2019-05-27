@@ -19,21 +19,26 @@ module.exports.adGroupsMap = {
 
 module.exports.clients = [
 	{
-		// http://localhost:3000/.well-known/openid-configuration
-		// request by claim: http://localhost:3000/auth?client_id=foo&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
-		// request by scope: http://localhost:3000/auth?client_id=foo&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
-		//response_types: ['id_token'],
-		//grant_types: ['implicit'],
+		// https://localhost:3000/.well-known/openid-configuration
+		// request by claim: https://localhost:3000/auth?client_id=foo1&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
+		// request by scope: https://localhost:3000/auth?client_id=foo1&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		// https://h45329mcowcwa1j1.v1.p.beameio.net:3000/auth?client_id=foo1&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		response_types: [ 'id_token' ],
+		grant_types: [ 'implicit' ],
+		client_id: 'foo1',
+		client_secret: 'bar',
+		redirect_uris: [ 'https://lvh.me:8080/cb' ],
+	},
+	{
 		client_id: 'foo',
 		client_secret: 'bar',
-		redirect_uris: ['https://h45329mcowcwa1j1.v1.p.beameio.net:4000/oidc/cb'],
-		response_types: ['code'],
-		grant_types: ['authorization_code'],
+		redirect_uris: [ 'https://h45329mcowcwa1j1.v1.p.beameio.net:4000/oidc/cb' ],
+		response_types: [ 'code' ],
+		grant_types: [ 'authorization_code' ],
 	},
 ];
 
 module.exports.provider = Object.assign({
-	acrValues: ['urn:beame:oidc-ad-provider'],
 	cookies: {
 		long: { signed: true, maxAge: (1 * 24 * 60 * 60) * 1000 }, // 1 day in ms
 		short: { signed: true },
@@ -88,6 +93,6 @@ module.exports.provider = Object.assign({
 		RefreshToken: 1 * 24 * 60 * 60, // 1 day in seconds
 
 		// if you want to drop dynamic registrations 24 hours after registration
-		//RegistrationAccessToken: 1 * 24 * 60 * 60, // 1 day in seconds
+		// RegistrationAccessToken: 1 * 24 * 60 * 60, // 1 day in seconds
 	},
 });

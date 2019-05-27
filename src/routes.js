@@ -5,10 +5,8 @@ const debug = require('debug')(configuration.debugPrefix + 'routes');
 const Account = require('./account');
 
 module.exports = (app, provider) => {
-	const { constructor: { errors: { SessionNotFound } } } = provider;
-
 	app.use('/interaction/:grant', function (req, res, next) { // start authentication against AD
-		var nodeSSPIObj = new nodeSSPI({
+		const nodeSSPIObj = new nodeSSPI({
 			retrieveGroups: true,
 		});
 		nodeSSPIObj.authenticate(req, res, function () {
@@ -26,7 +24,6 @@ module.exports = (app, provider) => {
 			const result = {
 				login: {
 					account: req.connection.userSid,
-					acr: configuration.provider.acrValues[0],
 					ts: Math.floor(Date.now() / 1000),
 				},
 				consent: {},
