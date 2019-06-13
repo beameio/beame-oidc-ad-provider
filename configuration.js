@@ -20,10 +20,10 @@ module.exports.adGroupsMap = {
 
 module.exports.clients = [
 	{
-		// https://test_fqdn:50000/.well-known/openid-configuration
-		// request by claim: https://test_fqdn:50000/auth?client_id=local_test&redirect_uri=https://localhost:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
-		// request by scope: https://test_fqdn:50000/auth?client_id=local_test&redirect_uri=https://localhost:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
-		// https://h45329mcowcwa1j1.v1.p.beameio.net:50000/auth?client_id=local_test&redirect_uri=https://localhost:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		// http://localhost:50000/.well-known/openid-configuration
+		// request by claim: http://localhost:50000/auth?client_id=local_test&redirect_uri=https://test_fqdn:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
+		// request by scope: http://localhost:50000/auth?client_id=local_test&redirect_uri=https://test_fqdn:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		// https://tvv9dtpcjuqgwtfp.v1.p.beameio.net:50000/auth?client_id=local_test&redirect_uri=https://test_fqdn:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
 		response_types: [ 'id_token' ],
 		grant_types: [ 'implicit' ],
 		client_id: 'local_test',
