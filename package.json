@@ -4,6 +4,7 @@
   "description": "OIDC provider from AD groups",
   "main": "server.js",
   "scripts": {
+    "run": "node server.js",
     "test": "mocha"
   },
   "repository": {
