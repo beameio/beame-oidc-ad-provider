@@ -40,7 +40,7 @@ module.exports.clients = [
 	{
 		client_id: 'beame_gatekeeper',
 		client_secret: 'beame_gatekeeper_password',
-		redirect_uris: [ 'https://h45329mcowcwa1j1.v1.p.beameio.net:4000/oidc/cb' ],
+		redirect_uris: [ 'https://h45329mcowcwa1j1.v1.p.beameio.net/oidc/cb' ],
 		response_types: [ 'code' ],
 		grant_types: [ 'authorization_code' ],
 	},
