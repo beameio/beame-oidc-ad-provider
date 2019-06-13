@@ -4,10 +4,11 @@ module.exports.certFqdn = process.env.BEAME_CERT_FQDN;
 if(!this.certFqdn) throw new Error('Cert Fqdn is mandatory. Please configure it using the BEAME_CERT_FQDN environment variable');
 
 module.exports.debugPrefix = "beame:oidc-ad-provider:";
-module.exports.port = process.env.BEAME_PROVIDER_PORT || 3000;
+module.exports.port = process.env.BEAME_PROVIDER_PORT || 50000;
 module.exports.address = process.env.BEAME_PROVIDER_ADDRESS || `https://${this.certFqdn}`;
 module.exports.runningAt = `${this.address}:${this.port}`;
 module.exports.timeout = process.env.BEAME_TIMEOUT;
+module.exports.useHttps = process.env.BEAME_PROVIDER_USE_HTTPS || 0;
 
 // map of ad groups to beame groups (eg: 'BUILTIN\\Users': [ 'login', 'register'])
 module.exports.adGroupsMap = {
@@ -19,19 +20,26 @@ module.exports.adGroupsMap = {
 
 module.exports.clients = [
 	{
-		// https://localhost:3000/.well-known/openid-configuration
-		// request by claim: https://localhost:3000/auth?client_id=foo1&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
-		// request by scope: https://localhost:3000/auth?client_id=foo1&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
-		// https://h45329mcowcwa1j1.v1.p.beameio.net:3000/auth?client_id=foo1&redirect_uri=https://lvh.me:8080/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		// https://localhost:50000/.well-known/openid-configuration
+		// request by claim: https://localhost:50000/auth?client_id=local_test&redirect_uri=https://localhost:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid&claims=%7B%22id_token%22%3A%7B%22groups%22%3A%20%7B%22essential%22%3A%20true%7D%2C%22name%22%3A%20%7B%22essential%22%3A%20true%7D%7D%7D
+		// request by scope: https://localhost:50000/auth?client_id=local_test&redirect_uri=https://localhost:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
+		// https://h45329mcowcwa1j1.v1.p.beameio.net:50000/auth?client_id=local_test&redirect_uri=https://localhost:3022/cb&response_type=id_token&nonce=222&state=3213424&scope=openid+profile+groups
 		response_types: [ 'id_token' ],
 		grant_types: [ 'implicit' ],
-		client_id: 'foo1',
-		client_secret: 'bar',
-		redirect_uris: [ 'https://lvh.me:8080/cb' ],
+		client_id: 'local_test',
+		client_secret: 'local_test_password',
+		redirect_uris: [ 'https://localhost:3022/cb' ],
 	},
 	{
-		client_id: 'foo',
-		client_secret: 'bar',
+		client_id: 'invitation_page',
+		client_secret: 'invitation_page_password',
+		redirect_uris: [ 'https://localhost:3000/oidc/cb' ],
+		response_types: [ 'code' ],
+		grant_types: [ 'authorization_code' ],
+	},
+	{
+		client_id: 'beame_gatekeeper',
+		client_secret: 'beame_gatekeeper_password',
 		redirect_uris: [ 'https://h45329mcowcwa1j1.v1.p.beameio.net:4000/oidc/cb' ],
 		response_types: [ 'code' ],
 		grant_types: [ 'authorization_code' ],
