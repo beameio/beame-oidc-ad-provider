@@ -10,7 +10,7 @@ describe('discovery', function() {
 
 	beforeEach(() => {
 		configuration = require("../configuration");
-		debug = require("debug")(configuration.debugPrefix + "tests:discovery");
+		debug = require("debug")(configuration.DebugPrefix + "tests:discovery");
 	});
 
 	afterEach(async () => {

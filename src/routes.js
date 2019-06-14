@@ -1,6 +1,6 @@
 const nodeSSPI = require('node-sspi');
 const configuration = require('../configuration');
-const debug = require('debug')(configuration.debugPrefix + 'routes');
+const debug = require('debug')(configuration.DebugPrefix + 'routes');
 
 const Account = require('./account');
 

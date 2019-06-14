@@ -1,14 +1,21 @@
 const pkg = require('./package.json');
 
-module.exports.certFqdn = process.env.BEAME_CERT_FQDN;
-if(!this.certFqdn) throw new Error('Cert Fqdn is mandatory. Please configure it using the BEAME_CERT_FQDN environment variable');
+const envs = {
+	_COMMON: {
+		CertFqdn: undefined,
+		DebugPrefix: "beame:oidc-ad-provider:",
+		ProviderUseHttps: 0,
+		ProviderPort: 50000,
+		ProviderAddress: undefined,
+		Timeout: undefined,
+	}
+};
+module.exports = require('beame-sdk').makeEnv(envs);
 
-module.exports.debugPrefix = "beame:oidc-ad-provider:";
-module.exports.useHttps = process.env.BEAME_PROVIDER_USE_HTTPS || 0;
-module.exports.port = process.env.BEAME_PROVIDER_PORT || 50000;
-module.exports.address = process.env.BEAME_PROVIDER_ADDRESS || this.useHttps ? `https://${this.certFqdn}` : 'http://localhost';
-module.exports.runningAt = `${this.address}:${this.port}`;
-module.exports.timeout = process.env.BEAME_TIMEOUT;
+if(!module.exports.CertFqdn) throw new Error('Cert Fqdn is mandatory. Please configure it using the BEAME_CERT_FQDN environment variable');
+
+const address = module.exports.ProviderAddress || module.exports.ProviderUseHttps ? `https://${module.exports.CertFqdn}` : 'http://localhost';
+module.exports.runningAt = `${address}:${module.exports.ProviderPort}`;
 
 // map of ad groups to beame groups (eg: 'BUILTIN\\Users': [ 'login', 'register'])
 module.exports.adGroupsMap = {

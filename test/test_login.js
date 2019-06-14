@@ -4,7 +4,7 @@ const assert = require('assert').strict;
 const fetch = require('node-fetch');
 const decache = require('decache');
 const configuration = require("../configuration");
-const debug = require("debug")(configuration.debugPrefix + "tests:login");
+const debug = require("debug")(configuration.DebugPrefix + "tests:login");
 let server;
 
 describe('login', function() {

@@ -21,7 +21,7 @@
     "test": "test"
   },
   "dependencies": {
-    "beame-sdk": "^2.1.1",
+    "beame-sdk": "git+https://github.com/beameio/beame-sdk.git#dev",
     "debug": "^4.1.1",
     "express": "^4.17.0",
     "helmet": "^3.18.0",

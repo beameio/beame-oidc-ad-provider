@@ -4,7 +4,7 @@ const Provider = require('oidc-provider');
 const express = require('express');
 const helmet = require('helmet');
 const configuration = require('./configuration');
-const debug = require('debug')(configuration.debugPrefix + 'server');
+const debug = require('debug')(configuration.DebugPrefix + 'server');
 const https = require('https');
 const routes = require('./src/routes');
 configuration.provider.findById = require('./src/account').findById;
@@ -17,14 +17,14 @@ app.use(helmet());
 
 const provider = new Provider(configuration.runningAt, configuration.provider);
 
-if (configuration.timeout) {
-	provider.defaultHttpOptions = { timeout: parseInt(configuration.timeout, 10) };
+if (configuration.Timeout) {
+	provider.defaultHttpOptions = { timeout: parseInt(configuration.Timeout, 10) };
 }
 
 let server;
 module.exports.server = (async () => {
-	debug(`Getting credential for ${configuration.certFqdn}`);
-	const cred = beameStore.getCredential(configuration.certFqdn);
+	debug(`Getting credential for ${configuration.CertFqdn}`);
+	const cred = beameStore.getCredential(configuration.CertFqdn);
 	debug(`Got credential ${JSON.stringify(cred.metadata)}`);
 	const key = await Provider.asKey(cred.PRIVATE_KEY, 'pem');
 	debug(`Credential asKey became ${JSON.stringify(key)}`);
@@ -38,7 +38,7 @@ module.exports.server = (async () => {
 	app.use('/', provider.callback);
 
 	let server = app;
-	if(configuration.useHttps) {
+	if(configuration.ProviderUseHttps) {
 		const httpsOptions = {
 			key: cred.PRIVATE_KEY,
 			ca: cred.P7B,
@@ -47,7 +47,7 @@ module.exports.server = (async () => {
 		server = https.createServer(httpsOptions, app);
 	}
 
-	server = await server.listen(configuration.port);
+	server = await server.listen(configuration.ProviderPort);
 	console.log(`Server started in ${configuration.runningAt}`);
 
 	if(configuration.provider.features.discovery) {
