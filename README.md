@@ -1,6 +1,6 @@
 
 # beame-oidc-ad-provider
-[![Build Status](https://travis-ci.org/beameio/beame-oidc-ad-provider.svg?branch=master)](https://travis-ci.org/beameio/beame-oidc-ad-provider) [![HitCount](http://hits.dwyl.io/beameio/beame-oidc-ad-provider.svg)](https://github.com/beameio/beame-oidc-ad-provider)
+[![Actions Status](/../../workflows/Build/badge.svg?branch=master)](/../../actions?query=workflow%3A%22Build%22+branch%3Amaster)
 
 Beame oidc provider for mapping windows active directory groups to beame groups
 
